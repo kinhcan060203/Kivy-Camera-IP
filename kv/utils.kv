@@ -1,0 +1,28 @@
+<CustomSnackbar>:
+    radius :[10,10,10,10]
+    top:0
+    size_hint_x:0.6
+    pos_hint: {'right': 0.99}
+
+    MDIconButton:
+        pos_hint: {'center_y': .5}
+        icon: root.icon
+        opposite_colors: True
+
+    MDLabel:
+        id: text_bar
+        size_hint_y: None
+        height: self.texture_size[1]
+        text: root.text
+        font_size: dp(17)
+        theme_text_color: 'Custom'
+        text_color: root.text_color
+        shorten: True
+        shorten_from: 'right'
+        pos_hint: {'center_y': .5}
+
+
+<IconListItem>:
+
+    IconLeftWidget:
+        icon: root.icon

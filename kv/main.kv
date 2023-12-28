@@ -1,0 +1,37 @@
+MDBoxLayout:
+    orientation: 'vertical'
+
+    MDBoxLayout:
+        height: "70dp"
+        size_hint_y: None
+        orientation: 'horizontal'
+        elevation: 4
+        md_bg_color: "#99FF66"
+        MDTopAppBar:
+            id: toolbar
+            size_hint_y:0.96
+            md_bg_color: '#00FFFF'
+            title: "Camera Home"
+            pos_hint: {'top': 1,"center_x":0.5}
+            right_action_items: [["dots-vertical", lambda x: app.show_dropdown(x)]]
+            specific_text_color: "#FFFFFF"
+            left_action_items:
+                [['menu', lambda x: home.ids.sideBar.set_state()]]
+
+
+    MDBoxLayout:
+        size_hint_y: 2
+
+        MDScreenManager:
+            id: screen_manager
+
+            HomeScreen:
+                id: home
+                md_bg_color: "lightblue"
+
+            SettingsScreen:
+                id: settings
+                md_bg_color: "lightblue"
+
+
+

@@ -1,0 +1,109 @@
+#:import get_color_from_hex kivy.utils.get_color_from_hex
+#:import Gradient kivy_gradient.Gradient
+<HomeScreen>:
+    name: "home_screen"
+    MDScreen:
+
+        MDNavigationLayout:
+            MDScreenManager:
+                size_hint_x: 1
+                MDScreen:
+                    MDBoxLayout:
+                        spacing: dp(5)
+                        padding: dp(10),dp(5),dp(5),dp(5)
+                        orientation: 'vertical'
+                        MDBoxLayout:
+                            size_hint_y:2
+                            id:camera
+
+                            canvas.before:
+                                Color:
+                                    rgba: (0,0,1,0.3)
+                                Line:
+                                    rounded_rectangle: [self.x, self.y, self.width, self.height, 12, 12, 12, 12]  
+                                    width:2
+                        MDBoxLayout:
+                            size_hint_y:1
+                            id:log
+                            name: log
+                            canvas.before:
+                                Color:
+                                    rgba: (0,0,1,0.3)
+                                Line:
+                                    rounded_rectangle: [self.x, self.y, self.width, self.height, 12, 12, 12, 12]  
+                                    width:2
+
+                        
+            MDNavigationDrawer:
+                radius: (0, 16, 16, 0)
+                id:sideBar
+                type: "standard"
+                size_hint_x:0.26
+                padding:[dp(0),dp(0),dp(0),dp(0)]
+                canvas.before:
+                    Color:
+                        rgba: (0.1,0.1,0.1,0.4)
+                    Line:
+                        rounded_rectangle: [self.x, self.y, self.width, self.height, 0, 16, 16, 0]  # Adjust the radius as needed
+                        width:3
+
+
+                MDBoxLayout:
+        
+                    orientation: 'vertical'
+                    size_hint:1,1
+                    spacing: dp(20)
+                    padding: dp(10)
+                    canvas.before:
+                        RoundedRectangle:
+                            size: self.size
+                            pos: self.pos
+                            texture: Gradient.horizontal(get_color_from_hex("#ec60ff"),get_color_from_hex("#eeb9ff"))
+                            radius: [0, 16, 16, 0]
+
+                    MDRoundFlatButton:
+                        id: abtn_init
+                        text: "Kích Hoạt"
+                        theme_text_color: "Custom"
+                        line_color: (1, 1, 1, 1)
+                        md_bg_color: "orange"
+                        pos_hint: {"center_x": 0.5, "center_y": .5}
+                        padding: dp(10),dp(15),dp(10),dp(15)
+                        size_hint_x: 0.88
+                        font_name: "assets/fonts/BeeLeaveRegular-3zR66.ttf"
+                        on_press: app.on_press(self)
+                        on_release: app.sidebar_abtn_pressed("init")
+                        font_style: "H6"
+
+                    MDRoundFlatButton:
+                        id: abtn_start
+                        theme_text_color: "Custom"
+                        line_color: (1, 1, 1, 1)
+                        text: "Bắt Đầu"
+                        md_bg_color: "orange"
+                        pos_hint: {"center_x": .5, "center_y": .5}
+                        padding: dp(10),dp(15),dp(10),dp(15)
+                        size_hint_x: 0.88
+                        font_style: "H6"
+                        font_name: "assets/fonts/BeeLeaveRegular-3zR66.ttf"
+                        on_press: app.on_press(self)
+                        on_release: app.sidebar_abtn_pressed("start")
+
+                    MDRoundFlatButton:
+                        text: "Dừng"
+                        id: abtn_stop
+                        theme_text_color: "Custom"
+                        line_color: (1, 1, 1, 1)
+                        md_bg_color: "orange"
+                        pos_hint: {"center_x": .5, "center_y": .5}
+                        padding: dp(10),dp(15),dp(10),dp(15)
+                        size_hint_x: 0.88
+                        font_style: "H6"
+                        font_name: "assets/fonts/BeeLeaveRegular-3zR66.ttf"
+                        on_press: app.on_press(self)
+                        on_release: app.sidebar_abtn_pressed("stop")
+
+                    Widget:
+
+
+     
