@@ -1,0 +1,84 @@
+#:import get_color_from_hex kivy.utils.get_color_from_hex
+    
+<RegisterScreen@MDBoxLayout>:
+    name: "register_screen"
+    MDScreen:
+        size_hint_x: 1
+        MDBoxLayout:
+            orientation: "vertical"
+            padding: '10dp'
+            spacing:"30dp"
+            md_bg_color: root.md_bg_color
+            MDLabel:
+                text: 'Registration Form'
+                font_size: '24sp'
+                size_hint_y: None
+                halign: 'center'
+            MDBoxLayout:
+                MDBoxLayout:
+                    orientation: "vertical"
+                    spacing:"30dp"
+                    padding:"10dp"
+                    InputTextField:
+                        hint_text:"Name"
+                        helper_text:"Nhập Tên Camera"
+                        icon_right:""
+                        size_hint_x:0.28
+                        pos_hint: {"left":0}
+                    InputTextField:
+                        hint_text:"URL: rtsp://..."
+                        helper_text:"rtsp://{user}:{password}@{kb-vision-id}:554/cam/realmonitor?channel=1&subtype=0"
+                        icon_right:"key-variant"
+                        size_hint_x:1
+                        pos_hint: {"left":0}
+            MDBoxLayout:
+                orientation:"horizontal"
+                padding:"10dp"
+                height: '50dp'
+                size_hint_y:None
+                size_hint_x:1
+                md_bg_color:"pink"
+                Widget:
+
+                MDRoundFlatButton:
+                    size_hint: None, None
+                    padding: [dp(30),dp(18),dp(30),dp(18)]
+                    text: 'Submit'
+                    pos_hint: {"center_x":0.5,"center_y":0.5}
+                    md_bg_color:"#66CCFF"
+                    font_size:dp(12)
+                    font_style:"H6"
+                    text_color:"white"
+                    on_press: root.confirm_submit()
+
+            Widget:
+
+<InputTextField@MDTextField>:
+    size_hint_x:root.size_hint_x
+    hint_text: root.hint_text
+    helper_text: root.helper_text
+    helper_text_mode: "persistent"
+    mode: "fill"
+    fill_color_focus: get_color_from_hex("#666666")
+    fill_color_normal:get_color_from_hex("#999999")
+    pos_hint: {"center_x": .5, "center_y": .5}
+    icon_right: root.icon_right
+    font_size:root.font_size
+    text_color_focus: "#EEEEEE"
+    text_color_normal: "#EEEEEE"
+    
+    icon_right_color_focus: "#00FFFF" 	
+    icon_right_color_normal: "#DDDDDD"
+    
+    line_color_normal: "#999999"
+    line_color_focus: "#EEEEEE"
+    
+    error_color:"red"
+    
+    hint_text_color_normal:"#DDDDDD"
+    hint_text_color_focus:"#333333"
+    
+    helper_text_color_normal:"#0099FF"
+    helper_text_color_focus:"#0066FF"
+    
+    radius:[15,15,0,0]   

@@ -4,12 +4,11 @@ import requests
 from kivymd.color_definitions import colors,palette
 from kivymd.uix.menu import MDDropdownMenu
 from kivymd.uix.screen import MDScreen
-from kivy.properties import StringProperty,NumericProperty, ColorProperty,ListProperty
 from kivy.metrics import dp
-import cv2
-# Window.size = (350,900)
 from utils import KivyCamera,SnackbarManager
-from kivy.uix.boxlayout import BoxLayout
+from kivymd.uix.boxlayout import MDBoxLayout
+from kivy.animation import Animation
+import cv2
 
 
 
@@ -36,29 +35,35 @@ database = {
         
     }
 }
-
 class HomeScreen(MDScreen):
     pass
 class SettingsScreen(MDScreen):
     pass
+class RegisterScreen(MDScreen):
+    pass
+class CameraItem(MDBoxLayout):
+    pass
 
-    
+
+
 class MainApp(MDApp):
     def __init__(self, **kwargs):
         super(MainApp, self).__init__(**kwargs)
         Builder.load_file('kv/utils.kv') 
+        Builder.load_file('kv/register.kv') 
         Builder.load_file('kv/home.kv') 
         Builder.load_file('kv/settings.kv') 
         
-        
+        self.menu=[]
         self.snackbarManager = SnackbarManager()
         self.user = database["user1"]
         self.current_page = "home_screen"
+        
     def build(self):
         return Builder.load_file('kv/main.kv') 
     def on_start(self):
         self._enabledWithStatus(self.user)
-        self.root.ids.home.ids.sideBar.set_state()
+        self.root.ids.sideBar.set_state()
         
     def _init_camera(self,rtps):
         try:
@@ -67,15 +72,33 @@ class MainApp(MDApp):
         except Exception as e:
             return False
         return True
-
+    def add_camera(self):
+        print("add_camera")
+        self.root.ids.sidebar_manager.ids.camera_manager.add_widget(CameraItem())
+        
+        
+    def confirm_submit(self):
+        self.submit_form()
+        pass
+    def submit_form(self):
+        print("submit_form")
+        self.add_camera()
+        self.close_register()
+        
+    def close_register(self):
+        self.redirect_page("home_screen")
     def on_stop(self):
         if self.capture:
             self.capture.release()
         
-
+    def on_leave(self,instance):
+        instance.md_bg_color = "#EEEEEE"
+    def on_enter(self,instance):
+        instance.md_bg_color = "#DDDDDD"
     def _auth_session(self, session):
         # check database status của username
         return True
+        
     def show_dropdown(self,instance):
         
         menu_items = [
@@ -107,11 +130,13 @@ class MainApp(MDApp):
             background_color= "pink",
             opening_time=0.3,
         )
+    
         self.menu.open()
     def redirect_page(self, place):
         self.root.ids.screen_manager.current = place
         self.current_page = place
-        self.menu.dismiss()
+        if self.menu:
+            self.menu.dismiss()
  
     def _enabledWithStatus(self,session):
         if not self._auth_session(session):

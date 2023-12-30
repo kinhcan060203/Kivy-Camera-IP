@@ -1,3 +1,5 @@
+#:import get_color_from_hex kivy.utils.get_color_from_hex
+#:import Gradient kivy_gradient.Gradient
 MDBoxLayout:
     orientation: 'vertical'
 
@@ -16,22 +18,188 @@ MDBoxLayout:
             right_action_items: [["dots-vertical", lambda x: app.show_dropdown(x)]]
             specific_text_color: "#FFFFFF"
             left_action_items:
-                [['menu', lambda x: home.ids.sideBar.set_state()]]
+                [['menu', lambda x: sideBar.set_state()]]
 
+
+    MDFloatLayout:
+        size_hint_y: 2
+        MDNavigationLayout:
+            md_bg_color:"lightblue"
+            MDScreenManager:
+                size_hint_y: 1
+                id: screen_manager
+                
+                HomeScreen:
+                    id: home
+                    md_bg_color: "lightblue"
+
+                SettingsScreen:
+                    id: settings
+                    md_bg_color: "lightblue"
+
+                RegisterScreen:
+                    id: register
+                    md_bg_color:"pink"
+          
+                    radius:[12,0,0,12]
+                    confirm_submit:app.confirm_submit
+
+
+
+            MDNavigationDrawer:
+                size_hint_x:0.3
+                id:sideBar
+                type: "standard"
+                radius: [0, 16, 16, 0]
+                
+                padding:[dp(0),dp(0),dp(0),dp(0)]
+                canvas.before:
+                    Color:
+                        rgba: (0.1,0.1,0.1,0.4)
+                    Line:
+                        rounded_rectangle: [self.x, self.y, self.width, self.height, 0, 16, 16, 0]  # Adjust the radius as needed
+                        width:3      
+
+                SidebarManager:
+                    id:sidebar_manager
+
+<SidebarManager@MDBoxLayout>:
+    radius: [0, 16, 16, 0]
+    orientation: 'vertical'
+    size_hint:1,1
+    spacing: dp(20)
+    padding: dp(10)
+    canvas.before:
+        RoundedRectangle:
+            size: self.size
+            pos: self.pos
+            texture: Gradient.horizontal(get_color_from_hex("#ec60ff"),get_color_from_hex("#eeb9ff"))
+            radius:[0, 16, 16, 0]
+
+ 
+    MDScrollView:
+        size_hint: (1,1)
+        do_scroll_y: True
+        do_scroll_x:False
+        bar_width: 5
+        bar_color: "#00CCFF"   
+        bar_inactive_color: "#AAAAAA"  
+        effect_cls: "ScrollEffect"
+        scroll_type: ['bars']
+        BoxLayout:
+            orientation: 'vertical'
+            size_hint_y: None
+            height: self.minimum_height
+            id: camera_manager
+            spacing:dp(10)
+            padding:[0,0,10,0]
 
     MDBoxLayout:
-        size_hint_y: 2
+        padding: 5
+        size_hint: (0.95, None)
+        height:dp(100)
+        pos_hint: {'center_x': 0.5, 'center_y': 0.5}
+        md_bg_color:"#CCFF99"
+        radius:[12,12,12,12]
+        orientation: "vertical"
 
-        MDScreenManager:
-            id: screen_manager
+        HoverItem:
+            on_touch_down:app.redirect_page("register_screen")
+            
+            md_bg_color:"#EEEEEE"
+            radius:[12,12,12,12]
+            on_enter:self.md_bg_color = "#DDDDDD"
+            on_leave:self.md_bg_color = "#EEEEEE"
+            pos_hint: {'center_x': 0.5, 'center_y': 0.5}
+            MDBoxLayout:
+                size_hint: (0.55, 0.55)
+                pos_hint: {'center_x': 0.5, 'center_y': 0.5}
+                canvas.before:
+                    Color:
+                        rgba: 0.5, 0.5, 0.5, 1  
+                    Line:
+                        points: self.x+self.width//2, self.y, self.x+self.width//2, self.y+self.height
+                        width: 1.4
+                    Line:
+                        points: self.x, self.y+self.height//2, self.x+self.width, self.y+self.height//2
+                        width: 1.4
+<CameraItem>:
+    padding:dp(5)
+    size_hint_y:None
+    height:dp(120)
+    MDNavigationDrawer:
+        md_bg_color:"#BFCAE6"
+        type: "standard"
+        padding:[dp(0),dp(0),dp(0),dp(0)]
+        size_hint_x:0.95
+        elevation:3 
+        radius: [16, 16, 16, 16]
+        MDBoxLayout:
+            radius: [8, 8, 8, 8]
+            spacing: dp(8)
+            orientation:"vertical"
+            
+            canvas.before:
+            
+                RoundedRectangle:
+                    size: self.size
+                    pos: self.pos
+                    texture: Gradient.horizontal(get_color_from_hex("#ec60ff"),get_color_from_hex("#eeb9ff"))
+                    radius: [6, 6, 6, 6]
+            MDExpansionPanelTwoLine:
+                _txt_left_pad:dp(12)
+                _txt_right_pad:dp(12)
+                _txt_bot_pad:dp(8)
+                _txt_top_pad:dp(4)
+                
+                text:"Text"
+                secondary_text:"hello"
+                x:dp(20)
+                size_hint_x:0.95
+                pos_hint: {"top": 1,"center_x": 0.5}
+                text: 'Panel Tdsadasdsdasdsadasdasdsad asdas dadsitle'
+                font_size:"22dp"
+                font_style:"H6"
+            MDBoxLayout:
+                size_hint_x:0.98
+                size_hint_y:None
+                height:dp(40)                
+                pos_hint: {"center_x": 0.5,"y":0.0}
+                MDLabel:
+                    text:"Pending..."
+                    pos_hint: {"center_y":0.5}
+                    theme_text_color: 'Primary'
+                    text_color: "green"
+                    font_size: '14sp'
+                    color:"green"
+                    padding:[dp(10)]
+                MDIcon:
+                    pos_hint: {"right": 1,"center_y":0.5}
+                    icon: 'check-circle'
+                    font_size: '25sp'
+                    color:"green"
 
-            HomeScreen:
-                id: home
-                md_bg_color: "lightblue"
 
-            SettingsScreen:
-                id: settings
-                md_bg_color: "lightblue"
 
+
+
+
+
+
+        # MDRoundFlatButton:
+        #     id: abtn_init
+        #     text: "Kích Hoạt"
+        #     theme_text_color: "Custom"
+        #     line_color: (1, 1, 1, 1)
+        #     md_bg_color: "orange"
+        #     pos_hint: {"center_x": 0.5, "center_y": .5}
+        #     padding: dp(10),dp(15),dp(10),dp(15)
+        #     size_hint_x: 0.88
+        #     font_name: "assets/fonts/BeeLeaveRegular-3zR66.ttf"
+        #     on_press: app.on_press(self)
+        #     on_release: app.sidebar_abtn_pressed("init")
+        #     font_style: "H6"
+
+        # Widget:
 
 
