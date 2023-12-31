@@ -1,6 +1,6 @@
 #:import get_color_from_hex kivy.utils.get_color_from_hex
     
-<RegisterScreen@MDBoxLayout>:
+<RegisterScreen>:
     name: "register_screen"
     MDScreen:
         size_hint_x: 1
@@ -12,23 +12,31 @@
             MDLabel:
                 text: 'Registration Form'
                 font_size: '24sp'
-                size_hint_y: None
                 halign: 'center'
+            Widget:
             MDBoxLayout:
                 MDBoxLayout:
                     orientation: "vertical"
                     spacing:"30dp"
                     padding:"10dp"
                     InputTextField:
+                        id:name
                         hint_text:"Name"
                         helper_text:"Nhập Tên Camera"
                         icon_right:""
-                        size_hint_x:0.28
+                        size_hint_x:0.3
                         pos_hint: {"left":0}
                     InputTextField:
-                        hint_text:"URL: rtsp://..."
+                        id:rtsp
+                        hint_text:"URL"
                         helper_text:"rtsp://{user}:{password}@{kb-vision-id}:554/cam/realmonitor?channel=1&subtype=0"
                         icon_right:"key-variant"
+                        size_hint_x:1
+                        pos_hint: {"left":0}
+                    InputTextField:
+                        id:desc
+                        hint_text:"Description..."
+                        icon_right:"pencil"
                         size_hint_x:1
                         pos_hint: {"left":0}
             MDBoxLayout:
@@ -37,7 +45,8 @@
                 height: '50dp'
                 size_hint_y:None
                 size_hint_x:1
-                md_bg_color:"pink"
+                md_bg_color:0,0,0,0
+                elevation:0
                 Widget:
 
                 MDRoundFlatButton:
@@ -45,11 +54,11 @@
                     padding: [dp(30),dp(18),dp(30),dp(18)]
                     text: 'Submit'
                     pos_hint: {"center_x":0.5,"center_y":0.5}
-                    md_bg_color:"#66CCFF"
+                    md_bg_color:"#3399FF"
                     font_size:dp(12)
                     font_style:"H6"
                     text_color:"white"
-                    on_press: root.confirm_submit()
+                    on_press: root.check_valid()
 
             Widget:
 

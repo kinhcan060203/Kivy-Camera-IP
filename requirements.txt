@@ -11,6 +11,7 @@ Kivy-Garden==0.1.5
 KivyGradient==0.0.4
 kivymd==1.1.1
 kvhot==2022.12.25
+materialyoucolor==1.2.0
 numpy==1.26.2
 opencv-python==4.8.1.78
 Pillow==10.1.0

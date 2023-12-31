@@ -1,6 +1,6 @@
 from typing import Any
 from kivymd.color_definitions import colors
-from kivymd.uix.button import MDFlatButton
+from kivymd.uix.button import MDFlatButton,MDRaisedButton
 from kivy.properties import StringProperty,NumericProperty, ColorProperty,ListProperty
 from kivymd.uix.list import OneLineIconListItem
 from kivy.metrics import dp
@@ -11,7 +11,7 @@ from kivy.graphics.texture import Texture
 import cv2
 from kivymd.uix.snackbar import BaseSnackbar
 from kivy.animation import Animation
-
+from kivymd.uix.dialog import MDDialog
 
 
 
@@ -140,3 +140,42 @@ class SnackbarManager:
             ),
         ]
         return snackBar_warning
+    
+
+
+
+
+
+# app.py
+# def _enabledWithStatus(self,session):
+#     if not self._auth_session(session):
+#         return False
+    
+#     for id_btn,button in self.root.ids.home.ids.items():
+#         if id_btn.startswith("abtn"):
+#             if id_btn.rsplit("_",1)[-1] in allow_action_list[session["status"]]:
+#                 self._enabledButton(button,colors["Orange"]["300"])
+#             else:
+#                 self._disabledButton(button)
+#     return True
+    
+# def on_press(self,button):
+#     button.md_bg_color = colors["Orange"]["600"]
+    
+# def _disabledButton(self,button):
+#     button.disabled = True
+#     button.line_width=1
+# def _enabledButton(self,button,color):
+#     button.disabled = False
+#     button.md_bg_color = color
+#     button.line_width=2
+    
+# def _disabledAllActionButton(self,session):
+#     if not self._auth_session(session):
+#         return False
+    
+#     for id_btn,button in self.root.ids.home.ids.items():
+#         if id_btn.startswith("abtn"):
+#             self._disabledButton(button)
+#     return True
+    

@@ -1,0 +1,113 @@
+
+#:import get_color_from_hex kivy.utils.get_color_from_hex
+#:import Gradient kivy_gradient.Gradient
+
+<SidebarManager>:
+    radius: [0, 16, 16, 0]
+    orientation: 'vertical'
+    size_hint:1,1
+    spacing: dp(20)
+    padding: dp(10)
+    canvas.before:
+        RoundedRectangle:
+            size: self.size
+            pos: self.pos
+            texture: Gradient.horizontal(get_color_from_hex("#ec60ff"),get_color_from_hex("#eeb9ff"))
+            radius:[0, 16, 16, 0]
+
+ 
+    MDScrollView:
+        size_hint: (1,1)
+        do_scroll_y: True
+        do_scroll_x:False
+        bar_width: 5
+        bar_color: "#00CCFF"   
+        bar_inactive_color: "#AAAAAA"  
+        effect_cls: "ScrollEffect"
+        scroll_type: ['bars']
+        BoxLayout:
+            orientation: 'vertical'
+            size_hint_y: None
+            height: self.minimum_height
+            id: camera_manager
+            spacing:dp(10)
+            padding:[0,0,10,0]
+    MDBoxLayout:
+        md_bg_color:"#999999"
+        padding: 3
+        size_hint: (0.95, None)
+        height:dp(100)
+        elevation:10
+        radius:[12,12,12,12]
+        MDBoxLayout:
+            pos_hint: {'center_x': 0.5, 'center_y': 0.5}
+            md_bg_color:"#CCCC99"
+            radius:[8,8,8,8]
+            MDRoundFlatButton:
+                radius:[12,12,12,12]
+                size_hint: (1,1)
+                line_color:0,0,0,0
+                pos_hint: {'center_x': 0.5, 'center_y': 0.5}
+                on_release:app.redirect_page("register_screen")
+                rounded_button:False
+                canvas.before:
+                    Color:
+                        rgba: get_color_from_hex("#0099FF")
+                    Line:
+                        points: self.x+self.width//2, self.y+15, self.x+self.width//2, self.y+self.height-15
+                        width: 1.2
+                    Line:
+                        points: self.x+30, self.y+self.height//2, self.x+self.width-30, self.y+self.height//2
+                        width: 1.2
+<CameraItem>:
+    padding:dp(5)
+    size_hint_y:None
+    height:dp(120)
+    MDNavigationDrawer:
+        md_bg_color:"#BFCAE6"
+        type: "standard"
+        padding:[dp(0),dp(0),dp(0),dp(0)]
+        size_hint_x:0.95
+        elevation:3 
+        radius: [16, 16, 16, 16]
+        MDBoxLayout:
+            radius: [8, 8, 8, 8]
+            spacing: dp(8)
+            orientation:"vertical"
+            canvas.before:
+                RoundedRectangle:
+                    size: self.size
+                    pos: self.pos
+                    texture: Gradient.horizontal(get_color_from_hex("#5bfedc"),get_color_from_hex("#a1ffec"))
+                    radius: [6, 6, 6, 6]
+            MDExpansionPanelTwoLine:
+                _txt_left_pad:dp(12)
+                _txt_right_pad:dp(12)
+                _txt_bot_pad:dp(8)
+                _txt_top_pad:dp(4)
+                
+                x:dp(20)
+                size_hint_x:0.95
+                pos_hint: {"top": 1,"center_x": 0.5}
+                secondary_text:root.secondary_text
+                text: root.text
+                font_size:"22dp"
+                font_style:"H6"
+            MDBoxLayout:
+                size_hint_x:0.98
+                size_hint_y:None
+                height:dp(40)                
+                pos_hint: {"center_x": 0.5,"y":0.0}
+                MDLabel:
+                    text:"Pending..."
+                    pos_hint: {"center_y":0.5}
+                    theme_text_color: 'Primary'
+                    text_color: "green"
+                    font_size: '14sp'
+                    color:"green"
+                    padding:[dp(10)]
+                MDIcon:
+                    pos_hint: {"right": 1,"center_y":0.5}
+                    icon: 'check-circle'
+                    font_size: '25sp'
+                    color:"green"
