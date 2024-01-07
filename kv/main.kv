@@ -1,0 +1,76 @@
+#:import os os
+#:import Window kivy.core.window.Window
+#:import IconLeftWidget kivymd.uix.list.IconLeftWidget
+#:import images_path kivymd.images_path
+#:import get_color_from_hex kivy.utils.get_color_from_hex
+#:import Gradient kivy_gradient.Gradient
+
+MDBoxLayout:
+    orientation: "vertical"
+
+    MDTopAppBar:
+        id: toolbar
+        size_hint_y:None
+        height:dp(50)
+        md_bg_color: '#00FFFF'
+        title: "Camera Home"
+        pos_hint: {'top': 1,"center_x":0.5}
+        right_action_items: [["dots-vertical", lambda x: None]]
+        specific_text_color: "#FFFFFF"
+        left_action_items:
+            [['menu', lambda x: None]]
+
+
+    MDScreen:
+        size_hint_y:0.4
+        MDBottomNavigation:
+            # text_color_active: "white"
+            text_color_normal: "#CCCCCC"
+            panel_color:'#888888'
+            MDBottomNavigationItem: 
+                name: 'detail'
+                text: 'Detail'
+                icon: 'star-box'
+                DetailManager:
+                    id:detail_manager
+                    size_hint_y:1
+                    md_bg_color:"#0066CC"
+
+            MDBottomNavigationItem:
+                name: 'log'
+                text: 'Log'
+                icon: 'bell-ring'
+                badge_icon: "numeric-10"
+                LogManager:
+                    id:log_manager
+       
+                    # md_bg_color:"blue"
+
+    MDScreen:
+        size_hint_y:0.45
+        MDBackdrop:
+            id: devices_backdrop
+            header:False
+            title: "Devices"
+            radius_left: "0"
+            radius_right: "25dp"
+            padding:[dp(0),dp(5),dp(5),dp(10)]
+            on_open:self.title = "Registration"
+            on_close:self.title = "Devices"
+            front_layer_color:get_color_from_hex("#33FFFF")
+            back_layer_color:get_color_from_hex("#00CCFF")
+            left_action_items: [['plus', lambda x: app.check_devices_backdrop()]]
+      
+            MDBackdropBackLayer:
+                RegisterManager:
+                    id:register_manager
+
+
+            MDBackdropFrontLayer:
+                orientation:"vertical"
+        
+                DevicesManager:
+                    id:devices_manager
+      
+
+
